@@ -1,5 +1,9 @@
 # LumberJack
 
+![LumberJack](./documents/images/lumberjack.png)
+
+Simple easy to use log viewer build in vue.
+
 ## Project setup
 ```
 npm install
