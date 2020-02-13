@@ -1,0 +1,4 @@
+Type,Time:Date,Message
+Error,1581394277,This is a sample log entry. Curious if its working.
+Warn,1581394277,Schools is optimized for learning testing and training.,ABC
+Info,1581394277,Nice,Yup
