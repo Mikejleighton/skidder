@@ -12,6 +12,14 @@ jobs:
         node-version: [8.x, 10.x, 12.x]
 
     steps:
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: '0'
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@1.17.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        WITH_V: false
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -22,7 +30,7 @@ jobs:
     - run: npm run lint
       env:
         CI: true
-        
+
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
