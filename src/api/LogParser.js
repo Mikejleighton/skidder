@@ -1,6 +1,3 @@
-// jshint esversion: 6
-// jshint -W033
-
 /***
  * Class that is used to parse logs. 
  */

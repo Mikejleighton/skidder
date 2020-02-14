@@ -5,6 +5,10 @@
 
 Simple easy to use log viewer build in vue.
 
+## Demo
+
+https://mikejleighton.github.io/lumberjack/
+
 ## Project setup
 ```
 npm install
