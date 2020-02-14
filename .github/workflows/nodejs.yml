@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -32,6 +31,19 @@ jobs:
       env:
         CI: true
 
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: git describe --tags `git rev-list --tags --max-count=1` > public/version
+    - run: npm run build --if-present
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
