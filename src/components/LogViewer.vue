@@ -52,6 +52,25 @@ import axios from 'axios'
 import LogParser from '../api/LogParser'
 //import dinoql from 'dinoql'
 export default {
+
+  /***
+   * The data function for the view.
+   */
+  data() {
+    return {
+      //componentKey: 0,
+
+      // The table headers.
+      headers: [],
+
+      // The logs that will be displayed.
+      logs: [],
+
+      // Hold the raw data.
+      rawData: undefined
+    }
+  },
+
   /***
    * Method that is called when the view is created. Load the
    * log data.
@@ -154,24 +173,6 @@ export default {
   computed: {
     componentKey(){
       return this.$vuetify.breakpoint.name === 'xs' ? 1 : 0;
-    }
-  },
-
-  /***
-   * The data function for the view.
-   */
-  data() {
-    return {
-      //componentKey: 0,
-
-      // The table headers.
-      headers: [],
-
-      // The logs that will be displayed.
-      logs: [],
-
-      // Hold the raw data.
-      rawData: undefined
     }
   },
 
