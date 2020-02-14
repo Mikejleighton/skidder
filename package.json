@@ -5,11 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy-github": "npm run build; push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.4.4",
+    "fibers": "^4.0.2",
+    "node-sass": "^4.13.1",
+    "push-dir": "^0.4.1",
     "vue": "^2.6.10",
     "vuetify": "^2.1.0"
   },
@@ -20,6 +24,7 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "push-dir": "^0.4.1",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
     "vue-cli-plugin-vuetify": "^2.0.4",
