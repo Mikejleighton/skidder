@@ -1,5 +1,5 @@
 <template>
-  <div style="height:100%;" @drop.prevent="loadTextFromFile" @dragover.prevent>
+  <div style="height:100%; background-color:#1E1E1E;" @drop.prevent="loadTextFromFile" @dragover.prevent>
     <!-- Small Table -->
 
     <v-data-table
@@ -12,6 +12,7 @@
       no-data-text="No data available. Drag a log file over to view."
       hide-default-footer
       class="elevation-0"
+      dark
     ></v-data-table>
 
     <!-- Large Table -->
@@ -25,6 +26,7 @@
       no-data-text="No data available. Drag a log file over to view."
       hide-default-footer
       class="elevation-0"
+      dark
     >
       <template slot="item" slot-scope="props">
         <tr loading>

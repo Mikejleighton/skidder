@@ -1,7 +1,8 @@
 <template>
   <v-app id="inspire">
     <v-app-bar app color="black" dark>
-      <v-toolbar-title>LumberJack</v-toolbar-title>
+       <v-img src="icon.png" style="max-width:25px; margin-right:10px;"></v-img>
+      <v-toolbar-title>Lumber Jack</v-toolbar-title>
     </v-app-bar>
 
     <v-content>
