@@ -5,8 +5,8 @@
       <v-toolbar-title>Lumber Jack</v-toolbar-title>
     </v-app-bar>
 
-    <v-content>
-      <log-viewer></log-viewer>
+    <v-content style="height:100%;">
+      <log-viewer style="height:100%;"></log-viewer>
     </v-content>
     <v-footer color="black" app>
       <span class="white--text" style="float:left;">&copy; 2020</span>
