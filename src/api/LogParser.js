@@ -29,7 +29,7 @@ class LogParser {
         if (parsedType === 'Date') {
             var date = new Date(0)
             date.setUTCSeconds(data)
-            return date.toISOString()
+            return date.toUTCString().replace("GMT", "")
         }
 
         // If its a chip. 

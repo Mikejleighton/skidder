@@ -52,7 +52,7 @@
 
                 <!-- Chip -->
                 <div v-if="header.dataType === 'Chip'">
-                  <v-chip class="ma-2" :color="props.item.color" outlined>
+                  <v-chip class="ma-2" :color="props.item.color" x-small>
                     {{ props.item[header.value] }}
                   </v-chip>
                 </div>
