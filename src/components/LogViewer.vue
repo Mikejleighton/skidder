@@ -4,10 +4,10 @@
     @drop.prevent="loadTextFromFile"
     @dragover.prevent
   >
-    <v-row style="height:100%;">
+    <v-row style="height:100%; background-color:#1E1E1E;">
 
       <!-- No data -->
-      <v-col v-if="!logLoaded" style="height:100%; color:white;">
+      <v-col v-if="!logLoaded" style="height:100%; color:white; background-color:#1E1E1E;">
         <v-container fluid>
           <v-row>
             <v-col cols="12">
@@ -30,7 +30,7 @@
                   </v-row>
 
                   <v-row
-                    style="max-width:400px; margin-top:30px;"
+                    style="max-width:400px; margin-top:30px; padding-right:30px; padding-left:30px;"
                     justify="center"
                   >
                     <p style="text-align:center;">

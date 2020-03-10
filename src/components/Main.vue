@@ -5,8 +5,8 @@
       <v-toolbar-title>Skidder</v-toolbar-title>
     </v-app-bar>
 
-    <v-content style="height:100%;">
-      <log-viewer style="height:103%; margin-top:-10px;"></log-viewer>
+    <v-content style="height:100%; background-color:#1E1E1E;">
+      <log-viewer style="height:105%; margin-top:-10px; background-color:#1E1E1E;"></log-viewer>
     </v-content>
     <v-footer color="black" app>
       <span class="white--text" style="float:left;">&copy; 2020</span>
