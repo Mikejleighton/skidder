@@ -26,7 +26,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: git describe --tags `git rev-list --tags --max-count=1` > public/version
-    - run: npm run build --if-present
+    - run: npm run build-git-hub --if-present
     - run: npm run lint
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3

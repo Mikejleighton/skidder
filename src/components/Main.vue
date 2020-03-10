@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-app-bar app color="black" dark>
        <v-img src="icon.png" style="max-width:25px; margin-right:10px;"></v-img>
-      <v-toolbar-title>Skidder</v-toolbar-title>
+      <v-toolbar-title>{{title}}</v-toolbar-title>
     </v-app-bar>
 
     <v-content style="height:100%; background-color:#1E1E1E;">
@@ -26,7 +26,10 @@ export default {
   data() {
     return {
       // The version of the application.
-      version: ''
+      version: '',
+
+      // The app title
+      title: ''
     }
   },
 
@@ -43,7 +46,7 @@ export default {
       var response = undefined
       try {
         response = await axios({
-          url: '/version',
+          url: process.env.VUE_APP_BASEURL + '/version',
           method: 'GET'
         })
       } catch (error) {
@@ -60,6 +63,9 @@ export default {
    * Called when the application is loaded.
    */
   created() {
+
+    this.title = process.env.VUE_APP_TITLE
+
     this.setVersion()
   },
 

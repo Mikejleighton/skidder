@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-git-hub": "vue-cli-service build --mode github",
     "lint": "vue-cli-service lint",
     "deploy-github": "npm run build; push-dir --dir=dist --branch=gh-pages --cleanup --allow-unclean"
   },

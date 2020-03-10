@@ -129,6 +129,8 @@ export default {
    */
   data() {
     return {
+
+      // The url to load a log file from. 
       loadUrl: undefined,
 
       // Hold if a log has been loaded.
@@ -189,7 +191,7 @@ export default {
      * Load a sample file.
      */
     loadSample() {
-      this.loadUrl = '/sample.log'
+      this.loadUrl = process.env.VUE_APP_BASEURL + '/sample.log'
       this.loadLogData()
     },
 
