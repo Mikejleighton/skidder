@@ -1,7 +1,9 @@
-# LumberJack
+# Skidder
 ![Node.js CI](https://github.com/Mikejleighton/lumberjack/workflows/Node.js%20CI/badge.svg?branch=master)
 
-![LumberJack](./documents/images/lumberjack.png)
+![Skidder](./documents/images/Skidder.png)
+
+![Skidder 2](./documents/images/Skidder2.png)
 
 Simple easy to use log viewer build in vue.
 
