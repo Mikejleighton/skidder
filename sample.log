@@ -1,4 +1,33 @@
-Type,Time:Date,Message
-Error,1581394277,This is a sample log entry. Curious if its working.
-Warn,1581394277,Schools is optimized for learning testing and training.,ABC
-Info,1581394277,Nice,Yup
+Type:Chip(Error-red|warn-orange|Info-green),Time:Date,Message
+Info,1583804983,systemd[1]: Starting Daily apt upgrade and clean activities...
+warn,1583804993,systemd[1]: Started Daily apt upgrade and clean activities...
+Error,1583804994,System crash detected
+Info,1583805534,CRON[29592]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly ))
+Info,1583812463,CDN - client insert callback function client = 0 type = 17 function = 0x7fff3cfdf21e local_olny = false
+Info,1583812463,CDN - client setup_remote_port
+Info,1583812463,Bootstrap Port: 1799
+Info,1583812485,CDN - Remote Port: 121115
+Info,1583812485,CDN - client setup_local_port
+warn,1583812485,CDN - Local Port: 120835 already opened
+Info,1583812501,CDN - client insert callback function client = 0 type = 17 function = 0x7fff3cfdf21e local_olny = false
+Info,1583812501,CDN - client setup_remote_port
+Info,1583812501,CDN - Bootstrap Port: 1799
+Error,1583812505,CDN - Remote Port: 123151 failed to open
+Info,1583812507,CDN - Remote Port: 123151 retry success
+Info,1583812507,CDN - client setup_local_port
+Info,1583807983,systemd[1]: Starting Daily apt upgrade and clean activities...
+warn,1583807993,systemd[1]: Started Daily apt upgrade and clean activities...
+Error,1583807994,System crash detected
+Info,1583807534,CRON[29592]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly ))
+Info,1583817463,CDN - client insert callback function client = 0 type = 17 function = 0x7fff3cfdf21e local_olny = false
+Info,1583817463,CDN - client setup_remote_port
+Info,1583817463,Bootstrap Port: 1799
+Info,1583817485,CDN - Remote Port: 121115
+Info,1583817485,CDN - client setup_local_port
+warn,1583817485,CDN - Local Port: 120835 already opened
+Info,1583817501,CDN - client insert callback function client = 0 type = 17 function = 0x7fff3cfdf21e local_olny = false
+Info,1583817501,CDN - client setup_remote_port
+Info,1583817501,CDN - Bootstrap Port: 1799
+Error,1583817505,CDN - Remote Port: 123151 failed to open
+Info,1583817507,CDN - Remote Port: 123151 retry success
+Info,1583817507,CDN - client setup_local_port
