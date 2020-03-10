@@ -6,7 +6,7 @@
     </v-app-bar>
 
     <v-content style="height:100%;">
-      <log-viewer style="height:100%;"></log-viewer>
+      <log-viewer style="height:103%; margin-top:-10px;"></log-viewer>
     </v-content>
     <v-footer color="black" app>
       <span class="white--text" style="float:left;">&copy; 2020</span>

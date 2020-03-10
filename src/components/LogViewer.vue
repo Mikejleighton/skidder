@@ -5,9 +5,53 @@
     @dragover.prevent
   >
     <v-row style="height:100%;">
+
+      <!-- No data -->
+      <v-col v-if="!logLoaded" style="height:100%; color:white;">
+        <v-container fluid>
+          <v-row>
+            <v-col cols="12">
+              <v-row align="center" justify="center">
+                <v-card class="elevation-0" dark>
+                  <v-row align="center" justify="center">
+                    <h2 class="display-1 font-weight-light">
+                      No Data Available
+                    </h2>
+                  </v-row>
+
+                  <v-row
+                    style="margin-top:30px;"
+                    align="center"
+                    justify="center"
+                  >
+                    <v-divider
+                      style="max-width:150px; background-color:white;"
+                    ></v-divider>
+                  </v-row>
+
+                  <v-row
+                    style="max-width:400px; margin-top:30px;"
+                    justify="center"
+                  >
+                    <p style="text-align:center;">
+                      Drag and drop a log file to view its contents. If you are
+                      just getting started then try out a sample log file.
+                    </p>
+                  </v-row>
+
+                  <v-row style="margin-top:30px;" justify="center">
+                    <v-btn outlined @click="loadSample()">Sample</v-btn>
+                  </v-row>
+                </v-card>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-col>
+
       <!-- Main content -->
-      <v-col style="height:100%;">
-        <v-toolbar dark class="elevation-0" color="#1E1E1E">
+      <v-col v-if="logLoaded" style="height:100%;">
+        <v-toolbar dark class="elevation-0" color="#1E1E1E" dense>
           <v-spacer></v-spacer>
           <v-btn class="ma-2" text @click="displayView('settings')">
             <v-icon left>mdi-settings</v-icon> Settings
@@ -63,7 +107,7 @@
       </v-col>
 
       <!-- The settings view -->
-      <v-col v-if="displaySettings" style="max-width:500px; height:100%;">
+      <v-col v-if="displaySettings" style="max-width:400px; height:100%;">
         <settings-view
           v-on:onClose="displayView(undefined)"
           v-on:onHeaderChanged="onHeaderChanged"
@@ -85,6 +129,11 @@ export default {
    */
   data() {
     return {
+      loadUrl: undefined,
+
+      // Hold if a log has been loaded.
+      logLoaded: false,
+
       // Hold if we should display the settings panel.
       displaySettings: false,
 
@@ -115,12 +164,35 @@ export default {
    * log data.
    */
   created() {
+    this.loadUrl = this.url;
     this.loadLogData()
   },
+
+  /***
+   * Watch for changes. 
+   */
+  watch: {
+
+    /***
+     * If we have data then data is loaded. 
+     */
+    logs: function(val){
+      this.logLoaded = val !== undefined
+    }
+  },
+
   /***
    * The view methods.
    */
   methods: {
+    /***
+     * Load a sample file.
+     */
+    loadSample() {
+      this.loadUrl = '/sample.log'
+      this.loadLogData()
+    },
+
     /***
      * Display a view.
      */
@@ -191,7 +263,7 @@ export default {
      */
     async loadLogData() {
       // Try to load from a url.
-      var response = await this.getDataFromUrl(this.url)
+      var response = await this.getDataFromUrl(this.loadUrl)
       if (response === undefined) {
         if (this.rawData === undefined) {
           return
