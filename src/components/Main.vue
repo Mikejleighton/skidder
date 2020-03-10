@@ -46,7 +46,7 @@ export default {
       var response = undefined
       try {
         response = await axios({
-          url: process.env.VUE_APP_BASEURL + '/version',
+          url: process.env.VUE_APP_BASEURL + 'version',
           method: 'GET'
         })
       } catch (error) {

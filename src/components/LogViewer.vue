@@ -191,7 +191,7 @@ export default {
      * Load a sample file.
      */
     loadSample() {
-      this.loadUrl = process.env.VUE_APP_BASEURL + '/sample.log'
+      this.loadUrl = process.env.VUE_APP_BASEURL + 'sample.log'
       this.loadLogData()
     },
 
