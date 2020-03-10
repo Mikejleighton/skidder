@@ -7,12 +7,14 @@
     <v-row style="height:100%;">
       <!-- Main content -->
       <v-col style="height:100%;">
-        <v-toolbar dark class="elevation-0" color="#1E1E1E">
+        <v-toolbar dark class="elevation-0" color="#1E1E1E" dense style="margin-top:-10px;">
           <v-spacer></v-spacer>
           <v-btn class="ma-2" text @click="displayView('settings')">
             <v-icon left>mdi-settings</v-icon> Settings
           </v-btn>
         </v-toolbar>
+
+        <log-chart-view style="color:blue; margin-left:50px; margin-right:50px;"></log-chart-view>
 
         <!-- Small Table -->
         <v-data-table
@@ -78,6 +80,7 @@
 import axios from 'axios'
 import LogParser from '../api/LogParser'
 import SettingsView from './SettingsView.vue'
+import LogChartView from './LogChartView.vue'
 //import dinoql from 'dinoql'
 export default {
   /***
@@ -98,7 +101,7 @@ export default {
       logs: [],
 
       // Hold the raw data.
-      rawData: undefined
+      rawData: undefined,
     }
   },
 
@@ -107,7 +110,10 @@ export default {
    */
   components: {
     // Allow the user to edit log settings.
-    SettingsView
+    SettingsView,
+
+    // The view that displays chart information.
+    LogChartView
   },
 
   /***

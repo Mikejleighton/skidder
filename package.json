@@ -9,12 +9,14 @@
     "deploy-github": "npm run build; push-dir --dir=dist --branch=gh-pages --cleanup --allow-unclean"
   },
   "dependencies": {
+    "apexcharts": "^3.16.0",
     "axios": "^0.19.2",
     "core-js": "^3.4.4",
     "fibers": "^4.0.2",
     "node-sass": "^4.13.1",
     "push-dir": "^0.4.1",
     "vue": "^2.6.10",
+    "vue-apexcharts": "^1.5.2",
     "vuetify": "^2.1.0"
   },
   "devDependencies": {
