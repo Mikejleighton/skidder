@@ -16,7 +16,12 @@
     </v-list-item>
 
     <v-list-item>
-      <v-text-field v-model="searchTerm" label="Search"></v-text-field>
+      <v-text-field
+        color="black"
+        v-model="searchTerm"
+        label="Search"
+        autofocus
+      ></v-text-field>
     </v-list-item>
   </v-card>
 </template>
@@ -33,32 +38,44 @@ export default {
   },
 
   /***
+   * Called when the view is created.
+   */
+  created() {
+    this.searchTerm = this.search
+  },
+
+  /***
    * Watch for changes to data.
    */
   watch: {
-
     /***
      * Called when the search term is changed.
      */
-    searchTerm: function(value){
-
+    searchTerm: function(value) {
       var logsFound = []
-      for(var i = 0; i < this.logs.length; i++){
+      for (var i = 0; i < this.logs.length; i++) {
         var item = this.logs[i]
 
         var values = Object.values(item)
-        for(var j = 0; j < values.length; j++){
-          if(values[j].includes !== undefined && values[j].includes(value)) {
+        for (var j = 0; j < values.length; j++) {
+          if (
+            values[j].includes !== undefined &&
+            values[j].toLowerCase().includes(value.toLowerCase())
+          ) {
             logsFound.push(item)
+            break
           }
         }
       }
 
-      this.$emit('onLogsFiltered', logsFound)
+      this.$emit('onLogsFiltered', {
+        logs: logsFound,
+        searchTerm: this.searchTerm
+      })
     }
   },
 
-/*
+  /*
   created(){
     this.$emit('onLogsFiltered', [this.logs[0]])
   },*/
@@ -78,6 +95,6 @@ export default {
   /***
    * The views passed into the settings view.
    */
-  props: ['logs']
+  props: ['logs', 'search']
 }
 </script>

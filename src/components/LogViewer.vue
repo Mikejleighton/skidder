@@ -4,10 +4,26 @@
     @drop.prevent="loadTextFromFile"
     @dragover.prevent
   >
-    <v-row style="height:100%; background-color:#1E1E1E;">
+    <!-- Display an alert for a filter -->
+    <v-alert
+      v-if="filterMessage !== undefined"
+      type="info"
+      style="z-index:10; margin: 10px 0 0 0;"
+      class="elevation-5"
+      tile
+      dense
+    >
+      {{ filterMessage }}
+    </v-alert>
+    <div v-if="filterMessage === undefined" style="padding:5px;"></div>
 
+    <!-- Main row -->
+    <v-row style="height:100%; background-color:#1E1E1E;">
       <!-- No data -->
-      <v-col v-if="!logLoaded" style="height:100%; color:white; background-color:#1E1E1E;">
+      <v-col
+        v-if="!logLoaded"
+        style="height:100%; color:white; background-color:#1E1E1E;"
+      >
         <v-container fluid>
           <v-row>
             <v-col cols="12">
@@ -50,7 +66,10 @@
       </v-col>
 
       <!-- Main content -->
-      <v-col v-if="logLoaded" style="height:100%;">
+      <v-col
+        v-if="logLoaded && splitScreen"
+        style="height:100%; padding-top:0px; padding-right:0px;"
+      >
         <v-toolbar dark class="elevation-0" color="#1E1E1E" dense>
           <v-spacer></v-spacer>
           <v-btn class="ma-2" text @click="displayView('search')">
@@ -110,7 +129,13 @@
       </v-col>
 
       <!-- The settings view -->
-      <v-col v-if="displaySettings" style="max-width:400px; height:100%;">
+      <v-col
+        v-if="displaySettings"
+        v-bind:class="[
+          { smallWindow: splitScreen },
+          { largeWindow: !splitScreen }
+        ]"
+      >
         <settings-view
           v-on:onClose="displayView(undefined)"
           v-on:onHeaderChanged="onHeaderChanged"
@@ -119,16 +144,36 @@
       </v-col>
 
       <!-- The search view -->
-      <v-col v-if="displaySearch" style="max-width:400px; height:100%;">
+      <v-col
+        v-if="displaySearch"
+        v-bind:class="[
+          { smallWindow: splitScreen },
+          { largeWindow: !splitScreen }
+        ]"
+      >
         <search-view
           v-on:onClose="displayView(undefined)"
           v-on:onLogsFiltered="onLogsFiltered"
           v-bind:logs="allLogs"
+          v-bind:search="searchTerm"
         ></search-view>
       </v-col>
     </v-row>
   </div>
 </template>
+
+<style scoped>
+.smallWindow {
+  max-width: 400px;
+  height: 100%;
+  padding: 0px;
+}
+.largeWindow {
+  width: 100px;
+  height: 100%;
+  padding: 0px;
+}
+</style>
 
 <script>
 import axios from 'axios'
@@ -141,8 +186,7 @@ export default {
    */
   data() {
     return {
-
-      // The url to load a log file from. 
+      // The url to load a log file from.
       loadUrl: undefined,
 
       // Hold if a log has been loaded.
@@ -151,7 +195,7 @@ export default {
       // Hold if we should display the settings panel.
       displaySettings: false,
 
-      // Hold if we should display the search panel. 
+      // Hold if we should display the search panel.
       displaySearch: false,
 
       // Headers that are displayed on the ui.
@@ -163,11 +207,20 @@ export default {
       // The logs that will be displayed.
       logs: [],
 
-      // The logs field may be filtered. This filed will hold all logs. 
+      // The logs field may be filtered. This filed will hold all logs.
       allLogs: [],
 
+      // Display the number of items that are filtered to the user.
+      filterMessage: undefined,
+
       // Hold the raw data.
-      rawData: undefined
+      rawData: undefined,
+
+      // Hold the search term that is currently being used.
+      searchTerm: '',
+
+      // Hold if we will display sub views via a split screen.
+      splitScreen: true
     }
   },
 
@@ -187,20 +240,34 @@ export default {
    * log data.
    */
   created() {
-    this.loadUrl = this.url;
+    this.loadUrl = this.url
     this.loadLogData()
   },
 
   /***
-   * Watch for changes. 
+   * Watch for changes.
    */
   watch: {
-
     /***
-     * If we have data then data is loaded. 
+     * If we have data then data is loaded.
      */
-    logs: function(val){
+    logs: function(val) {
       this.logLoaded = val !== undefined
+
+      if (this.logs !== undefined && this.allLogs !== undefined) {
+        if (this.logs.length === this.allLogs.length) {
+          this.filterMessage = undefined
+        } else {
+          this.filterMessage =
+            'Showing ' +
+            this.logs.length +
+            ' of ' +
+            this.allLogs.length +
+            ' logs'
+        }
+      } else {
+        this.filterMessage = undefined
+      }
     }
   },
 
@@ -220,14 +287,25 @@ export default {
      * Display a view.
      */
     displayView(view) {
+      if (
+        this.$vuetify.breakpoint.name === 'xs' ||
+        this.$vuetify.breakpoint.name === 'sm'
+      ) {
+        this.splitScreen = false
+      } else {
+        this.splitScreen = true
+      }
 
       this.displaySettings = false
       this.displaySearch = false
 
       if (view === 'settings') {
         this.displaySettings = true
-      } else if(view === 'search'){
+      } else if (view === 'search') {
         this.displaySearch = true
+      } else {
+        // Closing a display.
+        this.splitScreen = true
       }
     },
 
@@ -244,24 +322,6 @@ export default {
         self.loadLogData()
       }
       reader.readAsText(file)
-    },
-
-    /***
-     * Filter all items based on a sub set.
-     * @all All log items.
-     * @sub The subset to filter.
-     */
-    filter(all, sub) {
-      var dict = {}
-      for (var i = 0; i < all.length; i++) {
-        dict[all[i].id] = all[i]
-      }
-
-      var newValues = []
-      for (var j = 0; j < sub.length; j++) {
-        newValues.push(dict[sub[j].id])
-      }
-      return newValues
     },
 
     /***
@@ -311,10 +371,11 @@ export default {
     },
 
     /***
-     * Called when logs have been filted. 
+     * Called when logs have been filted.
      */
-    onLogsFiltered(filteredLogs){
-      this.logs = filteredLogs
+    onLogsFiltered(item) {
+      this.logs = item.logs
+      this.searchTerm = item.searchTerm
     },
 
     /***

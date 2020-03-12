@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app color="black" dark>
+    <v-app-bar app color="black" dark style="z-index:11;">
        <v-img src="icon.png" style="max-width:25px; margin-right:10px;"></v-img>
       <v-toolbar-title>{{title}}</v-toolbar-title>
     </v-app-bar>
