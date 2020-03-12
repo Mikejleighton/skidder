@@ -1,5 +1,5 @@
 <template>
-  <v-card class="elevation-5" style="height:105%; margin-top:-5px;">
+  <v-card class="elevation-5" style="height:105%; margin-top:-5px; padding-right:10px;">
     <v-toolbar class="elevation-0">
       <v-toolbar-title>Settings</v-toolbar-title>
       <v-spacer></v-spacer>
