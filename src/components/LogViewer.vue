@@ -53,6 +53,9 @@
       <v-col v-if="logLoaded" style="height:100%;">
         <v-toolbar dark class="elevation-0" color="#1E1E1E" dense>
           <v-spacer></v-spacer>
+          <v-btn class="ma-2" text @click="displayView('search')">
+            <v-icon left>mdi-magnify</v-icon> Search
+          </v-btn>
           <v-btn class="ma-2" text @click="displayView('settings')">
             <v-icon left>mdi-settings</v-icon> Settings
           </v-btn>
@@ -114,6 +117,15 @@
           v-bind:headers="headers"
         ></settings-view>
       </v-col>
+
+      <!-- The search view -->
+      <v-col v-if="displaySearch" style="max-width:400px; height:100%;">
+        <search-view
+          v-on:onClose="displayView(undefined)"
+          v-on:onLogsFiltered="onLogsFiltered"
+          v-bind:logs="allLogs"
+        ></search-view>
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -122,7 +134,7 @@
 import axios from 'axios'
 import LogParser from '../api/LogParser'
 import SettingsView from './SettingsView.vue'
-//import dinoql from 'dinoql'
+import SearchView from './SearchView.vue'
 export default {
   /***
    * The data function for the view.
@@ -139,6 +151,9 @@ export default {
       // Hold if we should display the settings panel.
       displaySettings: false,
 
+      // Hold if we should display the search panel. 
+      displaySearch: false,
+
       // Headers that are displayed on the ui.
       displayHeaders: [],
 
@@ -147,6 +162,9 @@ export default {
 
       // The logs that will be displayed.
       logs: [],
+
+      // The logs field may be filtered. This filed will hold all logs. 
+      allLogs: [],
 
       // Hold the raw data.
       rawData: undefined
@@ -158,7 +176,10 @@ export default {
    */
   components: {
     // Allow the user to edit log settings.
-    SettingsView
+    SettingsView,
+
+    // Allow the user to search or filter the log.
+    SearchView
   },
 
   /***
@@ -199,9 +220,14 @@ export default {
      * Display a view.
      */
     displayView(view) {
+
       this.displaySettings = false
+      this.displaySearch = false
+
       if (view === 'settings') {
         this.displaySettings = true
+      } else if(view === 'search'){
+        this.displaySearch = true
       }
     },
 
@@ -279,7 +305,16 @@ export default {
       var parsed = LogParser.parseData(response.data)
       this.headers = parsed.headers
       this.displayHeaders = this.headers
+
+      this.allLogs = parsed.items
       this.logs = parsed.items
+    },
+
+    /***
+     * Called when logs have been filted. 
+     */
+    onLogsFiltered(filteredLogs){
+      this.logs = filteredLogs
     },
 
     /***

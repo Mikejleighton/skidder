@@ -12,7 +12,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.4.4",
-    "fibers": "^4.0.2",
+    "fibers": "^4.0.3",
     "node-sass": "^4.13.1",
     "push-dir": "^0.4.1",
     "vue": "^2.6.10",
