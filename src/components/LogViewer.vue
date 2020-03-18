@@ -139,6 +139,7 @@
         <settings-view
           v-on:onClose="displayView(undefined)"
           v-on:onHeaderChanged="onHeaderChanged"
+          v-bind:displayedHeaders="displayHeaders"
           v-bind:headers="headers"
         ></settings-view>
       </v-col>

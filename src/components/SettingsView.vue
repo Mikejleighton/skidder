@@ -1,5 +1,8 @@
 <template>
-  <v-card class="elevation-5" style="height:105%; margin-top:-5px; padding-right:10px;">
+  <v-card
+    class="elevation-5"
+    style="height:105%; margin-top:-5px; padding-right:10px;"
+  >
     <v-toolbar class="elevation-0">
       <v-toolbar-title>Settings</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -9,9 +12,9 @@
     </v-toolbar>
 
     <v-list-item>
-    <p>
-      The following settings can be used to modify the application. 
-    </p>
+      <p>
+        The following settings can be used to modify the application.
+      </p>
     </v-list-item>
 
     <v-card-title>
@@ -29,7 +32,11 @@
         <v-row class="justify-center">
           <v-list>
             <v-list-item v-for="(item, index) in displayItems" :key="index">
-              <v-switch :label="item.text" v-model="item.on" @click.native="headerChanged()"></v-switch>
+              <v-switch
+                :label="item.text"
+                v-model="item.on"
+                @click.native="headerChanged()"
+              ></v-switch>
             </v-list-item>
           </v-list>
         </v-row>
@@ -55,8 +62,11 @@ export default {
    */
   created() {
     this.displayItems = this.headers
+    var values = Object.values(this.displayedHeaders).map(item => item.text)
     for (var i = 0; i < this.displayItems.length; i++) {
-      this.displayItems[i].on = true
+
+      // Check to see if the item is in the displayed headers. 
+      this.displayItems[i].on = values.includes(this.displayItems[i].text)
     }
   },
 
@@ -64,28 +74,13 @@ export default {
    * Methods used by the view.
    */
   methods: {
-
     /***
-     * Called when a header value has been changed. 
+     * Called when a header value has been changed.
      */
-    headerChanged(){
-      //item.on = !item.on;
-
-      //eslint-disable-next-line
-      //console.log(item)
-      /*
-      var index = -1;
-      for(var i = 0; i < this.displayItems.length; i++){
-        if(item.text === this.displayItems[i].text){
-          index = i
-        }
-      }
-      if(index >= 0){
-        this.displayItems.splice(index, 1)
-      }*/
+    headerChanged() {
       var items = []
-      for(var i = 0; i < this.displayItems.length; i++){
-        if(this.displayItems[i].on){
+      for (var i = 0; i < this.displayItems.length; i++) {
+        if (this.displayItems[i].on) {
           items.push(this.displayItems[i])
         }
       }
@@ -103,6 +98,6 @@ export default {
   /***
    * The views passed into the settings view.
    */
-  props: ['headers']
+  props: ['headers', 'displayedHeaders']
 }
 </script>
