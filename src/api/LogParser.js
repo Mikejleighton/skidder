@@ -1,3 +1,5 @@
+const sysParser = require("nsyslog-parser");
+
 /***
  * Class that is used to parse logs. 
  */
@@ -130,14 +132,71 @@ class LogParser {
     }
 
     /***
-     * Parse log data. 
+     * Attempts to covert a sys log file to a skidder core file. 
      * 
-     * @data Raw text data from the file. 
+     * @lines The lines in the sys log file. 
+     */
+    convertToCoreFile(lines) {
+
+        // Get a test line.
+        var test = sysParser(lines[0])
+
+        // Generate the file header. 
+        var includeApp = false
+        var header = 'Type:Chip(Error-red|warn-orange|Info-green),Time:Date'
+        if (test.appName !== '') {
+            header += ',App'
+            includeApp = true
+        }
+        header += ',Message'
+
+        // Generate the new lines. 
+        var newLines = []
+        newLines.push(header)
+
+        // Loop through all lines. 
+        lines.forEach(line => {
+            var parsed = sysParser(line)
+
+            var newLine = 'Info,' + parsed.ts.getTime() + ',';
+            if (includeApp) {
+                newLine += parsed.appName + ','
+            }
+            newLine += parsed.message
+            newLines.push(newLine)
+        });
+        return newLines
+    }
+
+    /***
+     * Parse raw data. First try to use the sys log parser. If that
+     * does not work then assume its a default skidder log file. 
+     * 
+     * @data The raw data. 
      */
     parseData(data) {
-
         // Get an array of lines from the data. 
         var lines = data.match(/[^\r\n]+/g);
+
+        // Check if we hae data. 
+        if (lines.length > 0) {
+
+            // Try a test line using the sys log parser. 
+            var test = sysParser(lines[0])
+            if (test.type === 'UNKNOWN') {
+                return this.parseCoreData(lines)
+            }
+            return this.parseCoreData(this.convertToCoreFile(lines))
+        }
+        return undefined
+    }
+
+    /***
+     * Parse a file that is in the skidder log format. 
+     * 
+     * @lines The lines of a skidder log as an array.  
+     */
+    parseCoreData(lines) {
 
         // Parse header info. 
         var headers = this.parseHeader(lines[0])
@@ -157,6 +216,7 @@ class LogParser {
             }
             items.push(newItem)
         }
+
         return this.postProcess({
             items: items,
             headers: headers

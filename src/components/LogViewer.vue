@@ -87,9 +87,9 @@
           v-if="$vuetify.breakpoint.xsOnly"
           :headers="displayHeaders"
           :items="logs"
-          disable-pagination
+          :disable-pagination="!largeLog"
+          :hide-default-footer="!largeLog"
           no-data-text="No data available. Drag a log file over to view."
-          hide-default-footer
           class="elevation-0"
           dark
         ></v-data-table>
@@ -102,11 +102,14 @@
           v-if="!$vuetify.breakpoint.xsOnly"
           :headers="displayHeaders"
           :items="logs"
-          disable-pagination
+          :disable-pagination="!largeLog"
+          :hide-default-footer="!largeLog"
           no-data-text="No data available. Drag a log file over to view."
-          hide-default-footer
           class="elevation-0"
           dark
+          :footer-props="{
+            itemsPerPageOptions: [10, 50, 100, -1],
+          }"
         >
           <template slot="item" slot-scope="props">
             <tr loading>
@@ -221,7 +224,13 @@ export default {
       searchTerm: '',
 
       // Hold if we will display sub views via a split screen.
-      splitScreen: true
+      splitScreen: true,
+
+      // Hold if the log is large. More than X number of items. 
+      largeLog: false,
+
+      // Hold what defines a lage log.
+      largeLogConst: 100
     }
   },
 
@@ -366,6 +375,10 @@ export default {
       var parsed = LogParser.parseData(response.data)
       this.headers = parsed.headers
       this.displayHeaders = this.headers
+      this.largeLog = parsed.items.length > this.largeLogConst
+
+      // eslint-disable-next-line
+      //console.log(this.allL)
 
       this.allLogs = parsed.items
       this.logs = parsed.items

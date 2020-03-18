@@ -14,6 +14,7 @@
     "core-js": "^3.4.4",
     "fibers": "^4.0.3",
     "node-sass": "^4.13.1",
+    "nsyslog-parser": "^0.9.6",
     "push-dir": "^0.4.1",
     "vue": "^2.6.10",
     "vuetify": "^2.1.0"
