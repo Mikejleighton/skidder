@@ -1,5 +1,5 @@
 # Skidder
-![Node.js CI](https://github.com/Mikejleighton/lumberjack/workflows/Node.js%20CI/badge.svg?branch=master)
+![Node.js CI](https://github.com/Mikejleighton/skidder/workflows/Node.js%20CI/badge.svg?branch=master)
 
 ![Skidder](./documents/images/Skidder.png)
 
@@ -9,7 +9,7 @@ Simple easy to use log viewer build in vue.
 
 ## Demo
 
-https://mikejleighton.github.io/lumberjack/
+https://mikejleighton.github.io/skidder/
 
 ## Project setup
 ```
