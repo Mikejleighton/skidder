@@ -1,0 +1,4 @@
+Type:Chip(Error-red|Warn-orange|Info-green),Time:Date,Message
+Info,1583804983,Message 1
+Warn,1583804993,Message 2
+Error,1583804994,Message 2
