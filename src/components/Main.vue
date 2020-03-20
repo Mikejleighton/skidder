@@ -1,22 +1,26 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app color="black" dark style="z-index:11;">
-       <v-img src="icon.png" style="max-width:25px; margin-right:10px;"></v-img>
-      <v-toolbar-title>{{title}}</v-toolbar-title>
-    </v-app-bar>
+    <!--
+    <v-app-bar app color="black" dark style="z-index:11;" dense>
+      <v-img src="icon.png" style="max-width:25px; margin-right:10px;"></v-img>
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
+    </v-app-bar>-->
 
     <v-content style="height:100%; background-color:#1E1E1E;">
-      <log-viewer style="height:105%; margin-top:-10px; background-color:#1E1E1E;"></log-viewer>
+      <log-viewer
+        style="height:105%; margin-top:-10px; background-color:#1E1E1E;"
+      ></log-viewer>
     </v-content>
     <v-footer color="black" app>
       <span class="white--text" style="float:left;">&copy; 2020</span>
       <v-spacer></v-spacer>
-      <span class="white--text" style="float:right;">{{version}}</span>
+      <span class="white--text" style="float:right;">{{ version }}</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+require('electron-titlebar')
 import LogViewer from './LogViewer'
 import axios from 'axios'
 export default {
@@ -63,7 +67,6 @@ export default {
    * Called when the application is loaded.
    */
   created() {
-
     this.title = process.env.VUE_APP_TITLE
 
     this.setVersion()
