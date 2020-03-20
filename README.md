@@ -70,3 +70,8 @@ npm run build
 ```
 npm run lint
 ```
+
+## Buy me a coffee
+If you like this project please let me know! You can buy me a coffee here:
+
+https://www.buymeacoffee.com/onv53zd 
