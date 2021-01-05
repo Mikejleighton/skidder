@@ -10,7 +10,7 @@
     "deploy-github": "npm run build; push-dir --dir=dist --branch=gh-pages --cleanup --allow-unclean"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.4",
     "fibers": "^4.0.3",
     "node-sass": "^4.13.1",
